@@ -1,0 +1,1 @@
+New-NetEventSession -name "test" -CaptureMode SaveToFile -LocalFilePath "C:\NetEvents\test" -CimSession 
