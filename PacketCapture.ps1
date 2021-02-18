@@ -11,13 +11,12 @@
 #Current runnning script
     #User input
 [string]$session = Read-Host -Prompt 'Please enter a filename'
-$targets = Read-Host -Prompt 'Please enter a target computer name'
 $targetIPs = Read-Host -Prompt 'Please enter a target IP'
 
 New-NetEventSession -Name $session
 Add-NetEventProvider  -SessionName $session -Name "Microsoft-Windows-TCPIP" -Level "5"
 Add-NetEventPacketCaptureProvider -SessionName $session -CaptureType "Switch" -Level "5" -IpAddresses $targetIPs -IpProtocols "2"
 Start-NetEventSession -Name $session
-ping $targets
+ping $targetIPs
 Stop-NetEventSession -Name $session
 Remove-NetEventSession -Name $session
