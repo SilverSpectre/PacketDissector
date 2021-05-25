@@ -21,7 +21,6 @@ function DisplayInfo {
         New-Variable -Name $var[0] -Value $var[1]
     }
     Remove-Item .\options.txt
-    echo "Filename: " $name
-    tracerpt "C:\Windows\system32\config\systemprofile\AppData\Local\NetEventTrace.etl" -o ".\$name.evtx" -of EVTX
-    Invoke-Item -Path ".\$name.evtx"
+    tracerpt "C:\Windows\system32\config\systemprofile\AppData\Local\NetEventTrace.etl" -o ".\NetEvents\$name.evtx" -of EVTX
+    Invoke-Item -Path ".\NetEvents\$name.evtx"
 }
