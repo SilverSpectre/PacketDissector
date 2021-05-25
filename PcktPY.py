@@ -6,13 +6,17 @@ filename = Entry()
 target = Entry()
 ip = Entry()
 
-def Script():
+def GetPackets():
     options = "name=" + filename.get() + "\ntarget=" + target.get() + "\nip=" + ip.get()
     Add(options)
     Label(root, text="Getting Packets...").pack()
-    subprocess.Popen('powershell', shell=True)
-    subprocess.run('.\PcktPS.ps1', shell=True)
-    subprocess.Popen('exit', shell=True)
+    subprocess.call(["C:\\WINDOWS\\system32\\WindowsPowerShell\\v1.0\\powershell.exe", '-Command', '&{. "./PcktPS.ps1"; & GetPackets}'])
+    DisplayInfo()
+
+def DisplayInfo():
+    Label(root, text="Saving log to " + filename.get() + ".evtx...").pack()
+    Label(root, text="Opening " + filename.get() + ".evtx...").pack()
+    subprocess.call(["C:\\WINDOWS\\system32\\WindowsPowerShell\\v1.0\\powershell.exe", '-Command', '&{. "./PcktPS.ps1"; & DisplayInfo}'])
 
 def Add(content):
     data = open("options.txt", "w+")
@@ -27,13 +31,7 @@ def Package():
     target.pack()
     Label(root, text="IP Address").pack()
     ip.pack()
-    Button(root, text="Get Packets", padx="10",
-           pady="10", command=Script).pack()
+    Button(root, text="Get Packets", padx="10", pady="10", command=GetPackets).pack()
     root.mainloop()
 
-def Import():
-    # importing and returning etl file.
-    print("Currently not displaying data")
-
 Package()
-Import()
